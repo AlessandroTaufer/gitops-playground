@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/wn00218760_wdp/demo-deployment.git
+    repoURL: https://github.com/AlessandroTaufer/gitops-playground.git
     targetRevision: main
-    path: argocd-apps
+    path: appsets
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

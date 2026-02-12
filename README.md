@@ -21,6 +21,7 @@ If this is a private repository, ArgoCD needs a credential to pull manifests. Cr
 Then create and apply a credential template that covers all GitHub repos:
 
 ```bash
+kubectl create namespace argocd
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
