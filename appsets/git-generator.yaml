@@ -9,10 +9,10 @@ spec:
         repoURL: https://github.com/AlessandroTaufer/gitops-playground.git
         revision: main
         directories:
-          - path: apps/*
+          - path: apps/*/envs/*
   template:
     metadata:
-      name: "{{ .path.basename }}"
+      name: "{{ index .path.segments 1 }}-{{ .path.basename }}"
       namespace: argocd
     spec:
       project: default
@@ -22,7 +22,7 @@ spec:
         path: "{{ .path.path }}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: "demo-{{ .path.basename }}"
+        namespace: "{{ index .path.segments 1 }}-{{ .path.basename }}"
       syncPolicy:
         automated:
           prune: true
