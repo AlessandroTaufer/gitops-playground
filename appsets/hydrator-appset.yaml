@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: hydrator-appset
+spec:
+  goTemplate: true
+  generators:
+    - git:
+        repoURL: https://github.com/AlessandroTaufer/gitops-playground.git
+        revision: main
+        directories:
+          - path: apps/*/envs/*
+  template:
+    metadata:
+      name: "{{ index .path.segments 1 }}-{{ .path.basename }}-hydrated"
+      namespace: argocd
+    spec:
+      project: default
+      sourceHydrator:
+        drySource:
+          repoURL: https://github.com/AlessandroTaufer/gitops-playground.git
+          targetRevision: main
+          path: "{{ .path.path }}"
+        syncSource:
+          targetBranch: "env/{{ .path.basename }}"
+          path: "{{ index .path.segments 1 }}"
+        hydrateTo:
+          targetBranch: "env/{{ .path.basename }}-next"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{ index .path.segments 1 }}-{{ .path.basename }}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
