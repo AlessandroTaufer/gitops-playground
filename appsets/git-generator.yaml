@@ -1,8 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: demo-apps
-  namespace: argocd
+  name: git-generator
 spec:
   goTemplate: true
   generators:
