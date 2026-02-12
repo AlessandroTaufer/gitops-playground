@@ -1,6 +1,6 @@
-# GitOps Demo Deployment
+# GitOps Playground
 
-A GitOps repository that deploys ArgoCD and two demo applications (nginx + httpbin) on a local Kubernetes cluster using the app-of-apps pattern.
+A ready-to-fork GitOps repository for experimenting with ArgoCD on a local Kubernetes cluster. Fork it, break it, tweak it!
 
 ## Prerequisites
 
@@ -68,8 +68,9 @@ Open https://localhost:8080 and log in with:
 
 ```
 root-app (app-of-apps)
-├── nginx-app  → apps/nginx/   → demo-nginx namespace
-└── httpbin-app → apps/httpbin/ → demo-httpbin namespace
+└── appsets/
+    ├── git-generator   → auto-discovers apps/* directories
+    └── list-generator  → deploys multiple podinfo instances via Helm
 ```
 
 ## Verify
